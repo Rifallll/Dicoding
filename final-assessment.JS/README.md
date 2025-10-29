@@ -1,120 +1,155 @@
-````{"id":"30951","variant":"standard","title":"README.md – Final Assessment JavaScript"}
-# 🧩 Final Assessment: JavaScript Dasar & Lanjutan
+# 🎓 Final Assessment - JavaScript
 
-Asesmen ini merupakan **tugas akhir (final assessment)** dari modul pembelajaran JavaScript di Dicoding.  
-Tujuannya adalah untuk menguji kemampuan Anda dalam menulis kode JavaScript yang mencakup **pemahaman dasar hingga konsep lanjutan** seperti OOP, modul, rekursi, dan pengujian.
-
----
-
-## 🚀 Tujuan Asesmen
-
-Proyek ini bertujuan untuk mengukur kemampuan peserta dalam:
-
-* Menulis dan mengelola kode JavaScript dengan gaya yang konsisten.  
-* Mengimplementasikan konsep **Object-Oriented Programming (OOP)**.  
-* Menggunakan **modul (import/export)** dengan benar.  
-* Menggunakan **rekursi (recursion)** untuk menyelesaikan permasalahan matematis.  
-* Melakukan **pengujian unit (unit testing)** menggunakan `node:test` dan `node:assert`.  
+Repositori ini berisi kumpulan tugas akhir JavaScript yang mencakup berbagai konsep penting seperti **Object-Oriented Programming (OOP)**, **Rekursi**, dan **Full Coverage Testing**.  
+Setiap bagian berada pada folder terpisah sesuai topiknya.
 
 ---
 
-## 🧱 Struktur Folder
+## 📦 Struktur Proyek
 
-Proyek final assessment ini terdiri atas beberapa bagian yang masing-masing menguji topik tertentu:
-
-| Folder | Deskripsi |
-|--------|------------|
-| `01-writing-comments` | Menulis komentar satu baris dan banyak baris di JavaScript. |
-| `02-consistent-style` | Menulis kode JavaScript dengan gaya penulisan konsisten. |
-| `03-unit-testing` | Membuat pengujian dasar untuk fungsi sederhana. |
-| `04-oop-inventory` | Membangun sistem manajemen inventaris barang dengan konsep OOP. |
-| `05-recursive` | Mengimplementasikan fungsi rekursif (Faktorial dan Fibonacci). |
-| `06-full-coverage-testing` | Melakukan pengujian secara menyeluruh (*full coverage testing*) menggunakan `node:test`. |
-
----
-
-## 🧩 Ketentuan Umum
-
-1. **Jangan ubah kode** yang telah disediakan di file `index.js` atau `package.json`, kecuali diminta secara eksplisit.  
-2. Semua tugas harus menggunakan **fitur modern JavaScript (ES6+)**.  
-3. Gunakan `export` dan `import` untuk setiap modul.  
-4. Pengujian harus menggunakan **modul bawaan Node.js**, bukan library eksternal seperti Jest atau Mocha.  
-5. Setiap bagian asesmen akan dijalankan secara independen.
+```
+final-assessment/
+│
+├── 01-writing-comments/
+├── 02-code-style/
+├── 03-writing-test/
+├── optional-04-oop/
+├── optional-05-recursive/
+├── optional-06-full-coverage-testing/
+└── optional-07-real-world-scenario/
+```
 
 ---
 
-## 🧭 Langkah Pengerjaan
+## 🧱 Object-Oriented Programming (OOP)
 
-1. Baca setiap instruksi yang ada di dalam file `README.md` pada masing-masing folder tugas.  
-2. Kerjakan file yang diminta sesuai petunjuk (misal `index.js`, `index.test.js`, atau `main.js`).  
-3. Jalankan kode menggunakan Node.js versi terbaru, misalnya:
-   ```bash
-   node main.js
-   ```
-   atau untuk tugas pengujian:
-   ```bash
-   node --test
-   ```
-4. Pastikan semua output sesuai dengan yang diharapkan dan tidak ada error.
+### 📘 Deskripsi
 
----
+Pada bagian ini, Anda diminta membuat **Sistem Manajemen Inventaris Barang** menggunakan konsep **Class** di JavaScript.  
+Program harus mampu:
 
-## 🧮 Contoh Bagian dari Asesmen
+- Menambah barang ke dalam inventaris  
+- Menghapus barang dari inventaris  
+- Memperbarui data barang  
+- Menampilkan seluruh daftar barang
 
-### 🔹 OOP – Sistem Manajemen Inventaris Barang
+### 💡 Contoh Output
 
-Anda akan membuat dua class:
-- `Item`: merepresentasikan satu barang.
-- `Inventory`: mengelola daftar barang dengan method `addItem`, `removeItem`, dan `listItems`.
-
-Contoh hasil output:
 ```
 Initial Inventory:
 ID: 1, Name: Laptop, Quantity: 10, Price: 1000
 ID: 2, Name: Mouse, Quantity: 50, Price: 20
+
+Inventory after update:
+ID: 1, Name: Laptop, Quantity: 8, Price: 950
+ID: 2, Name: Mouse, Quantity: 50, Price: 20
+
+Inventory after removal:
+ID: 1, Name: Laptop, Quantity: 8, Price: 950
 ```
 
 ---
 
-### 🔹 Recursive – Faktorial & Fibonacci
+## 🧩 Recursive – Faktorial & Fibonacci
 
-Anda harus membuat dua fungsi:
-- `factorial(n)` → Menghitung faktorial secara rekursif.  
-- `fibonacci(n)` → Menghasilkan deret Fibonacci hingga elemen ke-n.
+### 📘 Deskripsi
 
-Contoh output:
+Anda harus membuat dua fungsi rekursif:
+
+- `factorial(n)` → Menghitung faktorial dari bilangan `n`.
+- `fibonacci(n)` → Menghasilkan deret Fibonacci hingga elemen ke-`n`.
+
+### 💡 Contoh Output
+
 ```
 Faktorial dari 5 adalah 120
 Deret Fibonacci hingga elemen 10 adalah:
 [0]
 [0, 1]
 [0, 1, 1]
-...
+[0, 1, 1, 2]
+[0, 1, 1, 2, 3]
+[0, 1, 1, 2, 3, 5]
+[0, 1, 1, 2, 3, 5, 8]
+[0, 1, 1, 2, 3, 5, 8, 13]
+[0, 1, 1, 2, 3, 5, 8, 13, 21]
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 ```
 
 ---
 
-### 🔹 Full Coverage Testing
+## 🧪 Full Coverage Testing
 
-Gunakan `node:test` dan `node:assert` untuk menguji fungsi `sum` agar mencakup semua kemungkinan jalur logika:
+### 📘 Deskripsi
+
+Bagian ini bertujuan untuk menguji kemampuan Anda dalam menulis **pengujian unit** menggunakan modul bawaan Node.js:  
+`node:test` dan `node:assert`.
+
+Anda diminta menulis pengujian menyeluruh (*full coverage*) untuk fungsi `sum` di berkas `index.js`.
+
+### 💻 Fungsi yang Diuji (`index.js`)
+
+```javascript
+// Jangan ubah kode di berkas ini.
+function sum(a, b) {
+  if (typeof a !== 'number' || typeof b !== 'number') {
+    return 0;
+  }
+
+  if (a < 0 || b < 0) {
+    return 0;
+  }
+
+  return a + b;
+}
+
+export default sum;
+```
+
+### 🧠 Tujuan Pengujian
+
+Pastikan semua jalur logika diuji:
+1. Argumen bukan angka → `0`
+2. Argumen negatif → `0`
+3. Argumen valid (dua angka positif) → hasil penjumlahan
+
+### 🧰 Cara Menjalankan Pengujian
+
+Gunakan perintah berikut di terminal:
+
 ```bash
 node --test
 ```
 
----
+### 💡 Contoh Hasil Pengujian
 
-## ✅ Kriteria Penilaian
-
-| Aspek | Bobot |
-|-------|--------|
-| Kebenaran Kode | 40% |
-| Struktur & Modularisasi | 20% |
-| Gaya Penulisan | 15% |
-| Pemahaman OOP & Rekursi | 15% |
-| Pengujian & Validasi | 10% |
+```
+TAP version 13
+# Harus mengembalikan hasil penjumlahan jika dua angka valid
+# Harus mengembalikan 0 jika salah satu argumen bukan number
+# Harus mengembalikan 0 jika salah satu angka negatif
+ok 3 test cases passed
+```
 
 ---
 
-✍️ **Catatan:**
-Pastikan seluruh folder dan file telah lengkap serta dapat dijalankan tanpa error sebelum mengumpulkan proyek final ini.
-````
+## 🧾 Kriteria Penilaian
+
+| Aspek                         | Bobot |
+|-------------------------------|-------|
+| Kebenaran Kode                |  40%  |
+| Struktur & Modularisasi       |  20%  |
+| Gaya Penulisan                |  15%  |
+| Pemahaman OOP & Rekursi       |  15%  |
+| Pengujian & Validasi          |  10%  |
+
+---
+
+> ⚠️ **Catatan Penting:**  
+> Pastikan seluruh folder dan file lengkap serta dapat dijalankan tanpa error sebelum mengumpulkan tugas.  
+> Jangan ubah `index.js` dan `package.json` kecuali diminta secara eksplisit.
+
+---
+
+📚 **Dikembangkan untuk asesmen akhir JavaScript – Dicoding Academy**
