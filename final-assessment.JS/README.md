@@ -1,156 +1,208 @@
-```markdown
-# 🧪 Asesmen: Menulis Kode Pengujian Secara Menyeluruh (Full Coverage Testing)
+# Bookshelf API (Submission Dicoding)
 
-## 📖 Deskripsi
-Tugas ini bertujuan untuk menguji pemahaman Anda tentang **pengujian unit (unit testing)** di JavaScript menggunakan modul bawaan **`node:test`** dan **`node:assert`**.  
-Anda diminta untuk menulis kode pengujian dengan cakupan penuh (*full coverage*) terhadap fungsi `sum` yang sudah disediakan.
+Ini adalah *submission project* untuk kelas "Belajar Membuat Aplikasi Back-End untuk Pemula" dari Dicoding. Proyek ini adalah RESTful API sederhana untuk mengelola data buku (Bookshelf) yang dibangun menggunakan framework Hapi.js.
+
+## 🚀 Deskripsi Proyek
+
+API ini menyediakan serangkaian *endpoint* untuk melakukan operasi CRUD (Create, Read, Update, Delete) pada koleksi buku. API ini menyimpan data buku di dalam memori server (menggunakan array) selama server berjalan.
+
+Proyek ini dibangun untuk memenuhi semua kriteria yang disyaratkan, termasuk:
+* Menjalankan server di port 9000.
+* Menyediakan skrip `npm run start` untuk menjalankan server.
+* Menangani validasi *input* (seperti `name` yang wajib diisi dan `readPage` yang tidak boleh lebih besar dari `pageCount`).
+* Memberikan format respons yang spesifik untuk setiap skenario sukses dan gagal.
+
+## 💻 Teknologi yang Digunakan
+
+* **Node.js**: Lingkungan eksekusi JavaScript.
+* **Hapi.js (`@hapi/hapi`)**: Framework web untuk membangun API.
+* **nanoid (`nanoid@3`)**: Library untuk menghasilkan ID unik (digunakan untuk `bookId`).
+
+## 🏃‍♂️ Cara Menjalankan Proyek
+
+Berikut adalah tata cara untuk menjalankan proyek ini di komputer Anda:
+
+1.  Buka terminal atau Command Prompt.
+2.  Masuk ke direktori utama proyek ini (folder `Bookshelf API`).
+3.  Install semua *dependency* yang diperlukan (seperti Hapi dan nanoid) dengan menjalankan perintah:
+    ```bash
+    npm install
+    ```
+    *(Perintah ini akan membaca file `package.json` dan mengunduh modul yang diperlukan ke dalam folder `node_modules`).*
+
+4.  Setelah instalasi selesai, jalankan server dengan perintah:
+    ```bash
+    npm run start
+    ```
+    *(Perintah ini akan mengeksekusi skrip `start` yang ada di `package.json`, yaitu `node src/server.js`).*
+
+5.  Server sekarang berjalan di `http://localhost:9000` (karena `host` diatur ke `0.0.0.0` dan `port` ke `9000`). Anda siap menguji API menggunakan Postman.
+
+## 📖 Dokumentasi API
+
+API ini memiliki 5 *endpoint* utama:
 
 ---
 
-## 📂 Struktur Proyek
-```
+### 1. Tambah Buku
 
-final-assessment/
-├── optional-06-full-coverage-testing/
-│   ├── index.js
-│   ├── index.test.js
-│   ├── package.json
-│   └── README.md
+Menambahkan buku baru ke dalam rak.
 
-````
+* **Endpoint:** `POST /books`
+* **Body Request:** `application/json`
+    ```json
+    {
+        "name": "Buku A",
+        "year": 2010,
+        "author": "John Doe",
+        "summary": "Lorem ipsum dolor sit amet",
+        "publisher": "Dicoding Indonesia",
+        "pageCount": 100,
+        "readPage": 25,
+        "reading": false
+    }
+    ```
+* **Respons Sukses (201 Created):**
+    ```json
+    {
+        "status": "success",
+        "message": "Buku berhasil ditambahkan",
+        "data": {
+            "bookId": "Qbax5Oy7L8WKf74l"
+        }
+    }
+    ```
+* **Respons Gagal (400 Bad Request):**
+    * Jika `name` tidak diisi:
+        ```json
+        {
+            "status": "fail",
+            "message": "Gagal menambahkan buku. Mohon isi nama buku"
+        }
+        ```
+    * Jika `readPage` > `pageCount`:
+        ```json
+        {
+            "status": "fail",
+            "message": "Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount"
+        }
+        ```
 
 ---
 
-## ⚙️ Tujuan Pembelajaran
-1. Memahami dasar penggunaan `node:test` dan `node:assert` tanpa library eksternal seperti Jest atau Mocha.  
-2. Mampu membuat skenario uji yang mencakup seluruh percabangan logika dalam fungsi.  
-3. Mampu menjalankan dan membaca hasil pengujian melalui terminal.  
+### 2. Tampilkan Semua Buku
+
+Mendapatkan daftar semua buku. Mendukung *query parameter* untuk filter.
+
+* **Endpoint:** `GET /books`
+* **Query Parameters (Opsional):**
+    * `?name={string}`: Filter buku berdasarkan nama (case-insensitive).
+    * `?reading={0 | 1}`: Filter buku yang sedang/tidak sedang dibaca.
+    * `?finished={0 | 1}`: Filter buku yang sudah/belum selesai dibaca.
+* **Respons Sukses (200 OK):**
+    *(Hanya menampilkan `id`, `name`, dan `publisher`)*
+    ```json
+    {
+        "status": "success",
+        "data": {
+            "books": [
+                {
+                    "id": "Qbax5Oy7L8WKf74l",
+                    "name": "Buku A",
+                    "publisher": "Dicoding Indonesia"
+                }
+            ]
+        }
+    }
+    ```
 
 ---
 
-## 🧩 Kode yang Diuji (`index.js`)
-```javascript
-// Jangan ubah kode di berkas ini.
+### 3. Tampilkan Detail Buku
 
-function sum(a, b) {
-  if (typeof a !== 'number' || typeof b !== 'number') {
-    return 0;
-  }
+Mendapatkan detail lengkap dari sebuah buku berdasarkan ID.
 
-  if (a < 0 || b < 0) {
-    return 0;
-  }
+* **Endpoint:** `GET /books/{bookId}`
+* **Respons Sukses (200 OK):**
+    *(Menampilkan semua properti buku)*
+    ```json
+    {
+        "status": "success",
+        "data": {
+            "book": {
+                "id": "Qbax5Oy7L8WKf74l",
+                "name": "Buku A",
+                "year": 2010,
+                // ... properti lainnya
+                "insertedAt": "2021-03-04T09:11:44.598Z",
+                "updatedAt": "2021-03-04T09:11:44.598Z"
+            }
+        }
+    }
+    ```
+* **Respons Gagal (404 Not Found):**
+    * Jika `bookId` tidak ditemukan:
+        ```json
+        {
+            "status": "fail",
+            "message": "Buku tidak ditemukan"
+        }
+        ```
 
-  return a + b;
-}
+---
 
-export default sum;
-````
+### 4. Ubah Data Buku
 
------
+Memperbarui data buku yang sudah ada berdasarkan ID.
 
-## 🧠 Analisis Fungsi
+* **Endpoint:** `PUT /books/{bookId}`
+* **Body Request:** `application/json`
+    *(Sama seperti `POST /books`)*
+    ```json
+    {
+        "name": "Buku A (Revisi)",
+        "year": 2011,
+        // ... properti lainnya
+    }
+    ```
+* **Respons Sukses (200 OK):**
+    ```json
+    {
+        "status": "success",
+        "message": "Buku berhasil diperbarui"
+    }
+    ```
+* **Respons Gagal (400 Bad Request):**
+    * Validasi `name` dan `readPage` berlaku sama seperti saat menambah buku.
+* **Respons Gagal (404 Not Found):**
+    * Jika `bookId` tidak ditemukan:
+        ```json
+        {
+            "status": "fail",
+            "message": "Gagal memperbarui buku. Id tidak ditemukan"
+        }
+        ```
 
-Fungsi `sum` memiliki **tiga jalur logika utama**:
+---
 
-1.  Jika salah satu argumen **bukan number** → mengembalikan `0`.
-2.  Jika salah satu argumen **negatif** → mengembalikan `0`.
-3.  Jika kedua argumen **valid dan positif** → mengembalikan hasil penjumlahan.
+### 5. Hapus Buku
 
-Artinya, kita perlu membuat **uji kasus (test case)** yang mencakup semua skenario tersebut agar mencapai *full coverage*.
+Menghapus buku dari rak berdasarkan ID.
 
------
-
-## 🧪 Langkah Pengerjaan
-
-### 1️⃣. Buka file `index.js`
-
-Pelajari fungsi `sum` dan pahami kondisi logikanya.
-
-### 2️⃣. Buka file `index.test.js`
-
-Tulis kode pengujian dengan `node:test` dan `node:assert`.  
-Contoh implementasi:
-
-```javascript
-import { test } from 'node:test';
-import assert from 'node:assert';
-import sum from './index.js';
-
-test('Harus mengembalikan hasil penjumlahan jika dua angka valid', () => {
-  assert.strictEqual(sum(5, 7), 12);
-});
-
-test('Harus mengembalikan 0 jika salah satu argumen bukan number', () => {
-  assert.strictEqual(sum('5', 7), 0);
-  assert.strictEqual(sum(5, '7'), 0);
-  assert.strictEqual(sum('a', 'b'), 0);
-});
-
-test('Harus mengembalikan 0 jika salah satu angka negatif', () => {
-  assert.strictEqual(sum(-1, 3), 0);
-  assert.strictEqual(sum(4, -2), 0);
-  assert.strictEqual(sum(-5, -5), 0);
-});
-
-test('Harus mengembalikan 0 jika salah satu argumen undefined', () => {
-  assert.strictEqual(sum(undefined, 5), 0);
-  assert.strictEqual(sum(10, undefined), 0);
-});
-```
-
------
-
-## ▶️ Cara Menjalankan Pengujian
-
-### 1️⃣. Pastikan Anda berada di folder yang benar
-
-Masuk ke direktori asesmen:
-
-```bash
-cd C:\Users\ASUS\Downloads\final-assessment\optional-06-full-coverage-testing
-```
-
-### 2️⃣. Jalankan pengujian
-
-Gunakan perintah berikut di terminal:
-
-```bash
-node --test
-```
-
-atau jika di `package.json` sudah ada script:
-
-```bash
-npm test
-```
-
------
-
-## ✅ Hasil yang Diharapkan
-
-Jika semua skenario sudah diuji dengan benar, output di terminal akan menampilkan bahwa **semua test case berhasil (passed)** tanpa error, contohnya:
-
-```
-TAP version 13
-# Harus mengembalikan hasil penjumlahan jika dua angka valid
-# Harus mengembalikan 0 jika salah satu argumen bukan number
-# Harus mengembalikan 0 jika salah satu angka negatif
-# Harus mengembalikan 0 jika salah satu argumen undefined
-ok 4 test cases passed
-```
-
------
-
-## 🏁 Kesimpulan
-
-Dengan menyelesaikan asesmen ini, Anda telah mempraktikkan:
-
-  - Penulisan pengujian unit menggunakan `node:test`.
-  - Penggunaan `assert` untuk validasi hasil.
-  - Pembuatan skenario pengujian menyeluruh untuk mencapai **full coverage**.
-
------
-
-```
-```
+* **Endpoint:** `DELETE /books/{bookId}`
+* **Respons Sukses (200 OK):**
+    ```json
+    {
+        "status": "success",
+        "message": "Buku berhasil dihapus"
+    }
+    ```
+* **Respons Gagal (404 Not Found):**
+    * Jika `bookId` tidak ditemukan:
+        ```json
+        {
+            "status": "fail",
+            "message": "Buku gagal dihapus. Id tidak ditemukan"
+        }
+    }
+    ```
