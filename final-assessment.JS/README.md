@@ -1,208 +1,120 @@
-# Bookshelf API (Submission Dicoding)
+````{"id":"30951","variant":"standard","title":"README.md – Final Assessment JavaScript"}
+# 🧩 Final Assessment: JavaScript Dasar & Lanjutan
 
-Ini adalah *submission project* untuk kelas "Belajar Membuat Aplikasi Back-End untuk Pemula" dari Dicoding. Proyek ini adalah RESTful API sederhana untuk mengelola data buku (Bookshelf) yang dibangun menggunakan framework Hapi.js.
-
-## 🚀 Deskripsi Proyek
-
-API ini menyediakan serangkaian *endpoint* untuk melakukan operasi CRUD (Create, Read, Update, Delete) pada koleksi buku. API ini menyimpan data buku di dalam memori server (menggunakan array) selama server berjalan.
-
-Proyek ini dibangun untuk memenuhi semua kriteria yang disyaratkan, termasuk:
-* Menjalankan server di port 9000.
-* Menyediakan skrip `npm run start` untuk menjalankan server.
-* Menangani validasi *input* (seperti `name` yang wajib diisi dan `readPage` yang tidak boleh lebih besar dari `pageCount`).
-* Memberikan format respons yang spesifik untuk setiap skenario sukses dan gagal.
-
-## 💻 Teknologi yang Digunakan
-
-* **Node.js**: Lingkungan eksekusi JavaScript.
-* **Hapi.js (`@hapi/hapi`)**: Framework web untuk membangun API.
-* **nanoid (`nanoid@3`)**: Library untuk menghasilkan ID unik (digunakan untuk `bookId`).
-
-## 🏃‍♂️ Cara Menjalankan Proyek
-
-Berikut adalah tata cara untuk menjalankan proyek ini di komputer Anda:
-
-1.  Buka terminal atau Command Prompt.
-2.  Masuk ke direktori utama proyek ini (folder `Bookshelf API`).
-3.  Install semua *dependency* yang diperlukan (seperti Hapi dan nanoid) dengan menjalankan perintah:
-    ```bash
-    npm install
-    ```
-    *(Perintah ini akan membaca file `package.json` dan mengunduh modul yang diperlukan ke dalam folder `node_modules`).*
-
-4.  Setelah instalasi selesai, jalankan server dengan perintah:
-    ```bash
-    npm run start
-    ```
-    *(Perintah ini akan mengeksekusi skrip `start` yang ada di `package.json`, yaitu `node src/server.js`).*
-
-5.  Server sekarang berjalan di `http://localhost:9000` (karena `host` diatur ke `0.0.0.0` dan `port` ke `9000`). Anda siap menguji API menggunakan Postman.
-
-## 📖 Dokumentasi API
-
-API ini memiliki 5 *endpoint* utama:
+Asesmen ini merupakan **tugas akhir (final assessment)** dari modul pembelajaran JavaScript di Dicoding.  
+Tujuannya adalah untuk menguji kemampuan Anda dalam menulis kode JavaScript yang mencakup **pemahaman dasar hingga konsep lanjutan** seperti OOP, modul, rekursi, dan pengujian.
 
 ---
 
-### 1. Tambah Buku
+## 🚀 Tujuan Asesmen
 
-Menambahkan buku baru ke dalam rak.
+Proyek ini bertujuan untuk mengukur kemampuan peserta dalam:
 
-* **Endpoint:** `POST /books`
-* **Body Request:** `application/json`
-    ```json
-    {
-        "name": "Buku A",
-        "year": 2010,
-        "author": "John Doe",
-        "summary": "Lorem ipsum dolor sit amet",
-        "publisher": "Dicoding Indonesia",
-        "pageCount": 100,
-        "readPage": 25,
-        "reading": false
-    }
-    ```
-* **Respons Sukses (201 Created):**
-    ```json
-    {
-        "status": "success",
-        "message": "Buku berhasil ditambahkan",
-        "data": {
-            "bookId": "Qbax5Oy7L8WKf74l"
-        }
-    }
-    ```
-* **Respons Gagal (400 Bad Request):**
-    * Jika `name` tidak diisi:
-        ```json
-        {
-            "status": "fail",
-            "message": "Gagal menambahkan buku. Mohon isi nama buku"
-        }
-        ```
-    * Jika `readPage` > `pageCount`:
-        ```json
-        {
-            "status": "fail",
-            "message": "Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount"
-        }
-        ```
+* Menulis dan mengelola kode JavaScript dengan gaya yang konsisten.  
+* Mengimplementasikan konsep **Object-Oriented Programming (OOP)**.  
+* Menggunakan **modul (import/export)** dengan benar.  
+* Menggunakan **rekursi (recursion)** untuk menyelesaikan permasalahan matematis.  
+* Melakukan **pengujian unit (unit testing)** menggunakan `node:test` dan `node:assert`.  
 
 ---
 
-### 2. Tampilkan Semua Buku
+## 🧱 Struktur Folder
 
-Mendapatkan daftar semua buku. Mendukung *query parameter* untuk filter.
+Proyek final assessment ini terdiri atas beberapa bagian yang masing-masing menguji topik tertentu:
 
-* **Endpoint:** `GET /books`
-* **Query Parameters (Opsional):**
-    * `?name={string}`: Filter buku berdasarkan nama (case-insensitive).
-    * `?reading={0 | 1}`: Filter buku yang sedang/tidak sedang dibaca.
-    * `?finished={0 | 1}`: Filter buku yang sudah/belum selesai dibaca.
-* **Respons Sukses (200 OK):**
-    *(Hanya menampilkan `id`, `name`, dan `publisher`)*
-    ```json
-    {
-        "status": "success",
-        "data": {
-            "books": [
-                {
-                    "id": "Qbax5Oy7L8WKf74l",
-                    "name": "Buku A",
-                    "publisher": "Dicoding Indonesia"
-                }
-            ]
-        }
-    }
-    ```
+| Folder | Deskripsi |
+|--------|------------|
+| `01-writing-comments` | Menulis komentar satu baris dan banyak baris di JavaScript. |
+| `02-consistent-style` | Menulis kode JavaScript dengan gaya penulisan konsisten. |
+| `03-unit-testing` | Membuat pengujian dasar untuk fungsi sederhana. |
+| `04-oop-inventory` | Membangun sistem manajemen inventaris barang dengan konsep OOP. |
+| `05-recursive` | Mengimplementasikan fungsi rekursif (Faktorial dan Fibonacci). |
+| `06-full-coverage-testing` | Melakukan pengujian secara menyeluruh (*full coverage testing*) menggunakan `node:test`. |
 
 ---
 
-### 3. Tampilkan Detail Buku
+## 🧩 Ketentuan Umum
 
-Mendapatkan detail lengkap dari sebuah buku berdasarkan ID.
-
-* **Endpoint:** `GET /books/{bookId}`
-* **Respons Sukses (200 OK):**
-    *(Menampilkan semua properti buku)*
-    ```json
-    {
-        "status": "success",
-        "data": {
-            "book": {
-                "id": "Qbax5Oy7L8WKf74l",
-                "name": "Buku A",
-                "year": 2010,
-                // ... properti lainnya
-                "insertedAt": "2021-03-04T09:11:44.598Z",
-                "updatedAt": "2021-03-04T09:11:44.598Z"
-            }
-        }
-    }
-    ```
-* **Respons Gagal (404 Not Found):**
-    * Jika `bookId` tidak ditemukan:
-        ```json
-        {
-            "status": "fail",
-            "message": "Buku tidak ditemukan"
-        }
-        ```
+1. **Jangan ubah kode** yang telah disediakan di file `index.js` atau `package.json`, kecuali diminta secara eksplisit.  
+2. Semua tugas harus menggunakan **fitur modern JavaScript (ES6+)**.  
+3. Gunakan `export` dan `import` untuk setiap modul.  
+4. Pengujian harus menggunakan **modul bawaan Node.js**, bukan library eksternal seperti Jest atau Mocha.  
+5. Setiap bagian asesmen akan dijalankan secara independen.
 
 ---
 
-### 4. Ubah Data Buku
+## 🧭 Langkah Pengerjaan
 
-Memperbarui data buku yang sudah ada berdasarkan ID.
-
-* **Endpoint:** `PUT /books/{bookId}`
-* **Body Request:** `application/json`
-    *(Sama seperti `POST /books`)*
-    ```json
-    {
-        "name": "Buku A (Revisi)",
-        "year": 2011,
-        // ... properti lainnya
-    }
-    ```
-* **Respons Sukses (200 OK):**
-    ```json
-    {
-        "status": "success",
-        "message": "Buku berhasil diperbarui"
-    }
-    ```
-* **Respons Gagal (400 Bad Request):**
-    * Validasi `name` dan `readPage` berlaku sama seperti saat menambah buku.
-* **Respons Gagal (404 Not Found):**
-    * Jika `bookId` tidak ditemukan:
-        ```json
-        {
-            "status": "fail",
-            "message": "Gagal memperbarui buku. Id tidak ditemukan"
-        }
-        ```
+1. Baca setiap instruksi yang ada di dalam file `README.md` pada masing-masing folder tugas.  
+2. Kerjakan file yang diminta sesuai petunjuk (misal `index.js`, `index.test.js`, atau `main.js`).  
+3. Jalankan kode menggunakan Node.js versi terbaru, misalnya:
+   ```bash
+   node main.js
+   ```
+   atau untuk tugas pengujian:
+   ```bash
+   node --test
+   ```
+4. Pastikan semua output sesuai dengan yang diharapkan dan tidak ada error.
 
 ---
 
-### 5. Hapus Buku
+## 🧮 Contoh Bagian dari Asesmen
 
-Menghapus buku dari rak berdasarkan ID.
+### 🔹 OOP – Sistem Manajemen Inventaris Barang
 
-* **Endpoint:** `DELETE /books/{bookId}`
-* **Respons Sukses (200 OK):**
-    ```json
-    {
-        "status": "success",
-        "message": "Buku berhasil dihapus"
-    }
-    ```
-* **Respons Gagal (404 Not Found):**
-    * Jika `bookId` tidak ditemukan:
-        ```json
-        {
-            "status": "fail",
-            "message": "Buku gagal dihapus. Id tidak ditemukan"
-        }
-    }
-    ```
+Anda akan membuat dua class:
+- `Item`: merepresentasikan satu barang.
+- `Inventory`: mengelola daftar barang dengan method `addItem`, `removeItem`, dan `listItems`.
+
+Contoh hasil output:
+```
+Initial Inventory:
+ID: 1, Name: Laptop, Quantity: 10, Price: 1000
+ID: 2, Name: Mouse, Quantity: 50, Price: 20
+```
+
+---
+
+### 🔹 Recursive – Faktorial & Fibonacci
+
+Anda harus membuat dua fungsi:
+- `factorial(n)` → Menghitung faktorial secara rekursif.  
+- `fibonacci(n)` → Menghasilkan deret Fibonacci hingga elemen ke-n.
+
+Contoh output:
+```
+Faktorial dari 5 adalah 120
+Deret Fibonacci hingga elemen 10 adalah:
+[0]
+[0, 1]
+[0, 1, 1]
+...
+```
+
+---
+
+### 🔹 Full Coverage Testing
+
+Gunakan `node:test` dan `node:assert` untuk menguji fungsi `sum` agar mencakup semua kemungkinan jalur logika:
+```bash
+node --test
+```
+
+---
+
+## ✅ Kriteria Penilaian
+
+| Aspek | Bobot |
+|-------|--------|
+| Kebenaran Kode | 40% |
+| Struktur & Modularisasi | 20% |
+| Gaya Penulisan | 15% |
+| Pemahaman OOP & Rekursi | 15% |
+| Pengujian & Validasi | 10% |
+
+---
+
+✍️ **Catatan:**
+Pastikan seluruh folder dan file telah lengkap serta dapat dijalankan tanpa error sebelum mengumpulkan proyek final ini.
+````
