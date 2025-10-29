@@ -1,7 +1,3 @@
-Tentu, ini adalah file `README.md` lengkap berdasarkan konten yang Anda berikan.
-
------
-
 ```markdown
 # 🧪 Asesmen: Menulis Kode Pengujian Secara Menyeluruh (Full Coverage Testing)
 
