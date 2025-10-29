@@ -152,7 +152,5 @@ Dengan menyelesaikan asesmen ini, Anda telah mempraktikkan:
 
 -----
 
-✍️ **Catatan:** Pastikan tidak mengubah isi file `index.js` dan `package.json`, karena perubahan pada kode utama dapat menggagalkan penilaian otomatis.
-
 ```
 ```
