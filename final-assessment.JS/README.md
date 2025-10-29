@@ -1,5 +1,3 @@
-Tentu, ini adalah file `README.md` lengkap untuk asesmen *Full Coverage Testing* dalam satu blok yang bisa langsung Anda salin.
-
 ```markdown
 # 🧪 Asesmen: Menulis Kode Pengujian Secara Menyeluruh (Full Coverage Testing)
 
